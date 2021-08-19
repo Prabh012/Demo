@@ -1,0 +1,12 @@
+2021-08-18 22:16:35 [34mINFO [0;39m [36mplay.api.db.DefaultDBApi[0;39m [35m[0;39m Database [default] initialized
+2021-08-18 22:16:35 [34mINFO [0;39m [36mplay.api.db.HikariCPConnectionPool[0;39m [35m[0;39m Creating Pool for datasource 'default'
+2021-08-18 22:16:35 [31mWARN [0;39m [36mc.z.hikari.util.DriverDataSource[0;39m [35m[0;39m Registered driver with driverClassName=com.mysql.jdbc.Driver was not found, trying direct instantiation.
+2021-08-18 22:16:36 [34mINFO [0;39m [36mplay.api.http.EnabledFilters[0;39m [35m[0;39m Enabled Filters (see <https://www.playframework.com/documentation/latest/Filters>):
+
+    play.filters.csrf.CSRFFilter
+    play.filters.headers.SecurityHeadersFilter
+    play.filters.hosts.AllowedHostsFilter
+
+2021-08-18 22:16:36 [34mINFO [0;39m [36mplay.api.Play[0;39m [35m[0;39m Application started (Dev) (no global state)
+2021-08-18 22:16:38 [1;31mERROR[0;39m [36mapplication[0;39m [35m[0;39m Emal ID doesnot exists
+2021-08-18 22:35:55 [31mWARN [0;39m [36mcom.zaxxer.hikari.pool.HikariPool[0;39m [35m[0;39m HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m19s389ms538µs700ns).
