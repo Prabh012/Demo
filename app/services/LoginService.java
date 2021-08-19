@@ -25,6 +25,7 @@ public class LoginService {
     public Person createUser(String firstName, String middleName, String lastName, String address, String email, String password) {
 
         Person p = new Person();
+        //Ceating obj
         p.setFirstName(firstName);
         p.setMiddleName(middleName);
         p.setLastName(lastName);
