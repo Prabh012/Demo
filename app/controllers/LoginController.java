@@ -16,6 +16,7 @@ import services.StatusService;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.List;
 
 public class LoginController extends Controller {
 
@@ -81,6 +82,11 @@ loginService.savePerson(personDtoForm.get());
 
         return ok("Invalid password");
     }
+        public Result listOfStudent(){
+            List<Person> personList= loginService.listOfUser();
+        return ok(personList.toString());
+        }
+
 
 
     }

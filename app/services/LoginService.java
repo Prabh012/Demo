@@ -5,6 +5,7 @@ import models.DbConnector;
 import models.Person;
 import models.Roles;
 import models.Status;
+import java.util.*;
 
 import javax.inject.Inject;
 import javax.validation.constraints.Email;
@@ -25,7 +26,7 @@ public class LoginService {
     public Person createUser(String firstName, String middleName, String lastName, String address, String email, String password) {
 
         Person p = new Person();
-        //Ceating obj
+
         p.setFirstName(firstName);
         p.setMiddleName(middleName);
         p.setLastName(lastName);
@@ -50,8 +51,9 @@ public class LoginService {
 
     }
 
-    public Person listOfUser(Integer integer){
-        return Person.find.query().where().eq("").findList();
+    public List<Person> listOfUser(){
+        return Person.find.query().where().findList();
+
     }
 
 
