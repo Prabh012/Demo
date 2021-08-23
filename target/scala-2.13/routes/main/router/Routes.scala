@@ -50,6 +50,7 @@ class Routes(
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """save""", """controllers.LoginController.save(request:Request)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """update/status/""" + "$" + """id<[^/]+>/""" + "$" + """statusId<[^/]+>""", """controllers.LoginController.updateStatus(id:Integer, statusId:Integer)"""),
     ("""POST""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """login""", """controllers.LoginController.login(request:Request)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """listOfStudent""", """controllers.LoginController.listOfStudent(request:Request)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
     case r @ (_,_,_) => s :+ r.asInstanceOf[(String,String,String)]
@@ -187,6 +188,26 @@ class Routes(
     )
   )
 
+  // @LINE:15
+  private[this] lazy val controllers_LoginController_listOfStudent7_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("listOfStudent")))
+  )
+  private[this] lazy val controllers_LoginController_listOfStudent7_invoker = createInvoker(
+    
+    (req:play.mvc.Http.Request) =>
+      LoginController_0.listOfStudent(fakeValue[play.mvc.Http.Request]),
+    play.api.routing.HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.LoginController",
+      "listOfStudent",
+      Seq(classOf[play.mvc.Http.Request]),
+      "GET",
+      this.prefix + """listOfStudent""",
+      """""",
+      Seq()
+    )
+  )
+
 
   def routes: PartialFunction[RequestHeader, Handler] = {
   
@@ -232,6 +253,13 @@ class Routes(
       call { 
         controllers_LoginController_login6_invoker.call(
           req => LoginController_0.login(req))
+      }
+  
+    // @LINE:15
+    case controllers_LoginController_listOfStudent7_route(params@_) =>
+      call { 
+        controllers_LoginController_listOfStudent7_invoker.call(
+          req => LoginController_0.listOfStudent(req))
       }
   }
 }

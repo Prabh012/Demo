@@ -32,6 +32,12 @@ package controllers {
     }
 
   
+    // @LINE:15
+    def listOfStudent(): Call = {
+      
+      Call("GET", _prefix + { _defaultPrefix } + "listOfStudent")
+    }
+  
     // @LINE:12
     def save(): Call = {
       

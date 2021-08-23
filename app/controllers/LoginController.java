@@ -1,7 +1,6 @@
 package controllers;
 
 import dto.PersonDto;
-import models.DbConnector;
 import models.Person;
 import play.Logger;
 import play.data.Form;
@@ -10,67 +9,66 @@ import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Http;
 import play.mvc.Result;
-import services.LoginService;
-import services.RolesService;
-import services.StatusService;
+import services.LoginServiceImpl;
+import services.RolesServiceImpl;
+import services.StatusServiceImpl;
 
 import javax.inject.Inject;
-import java.util.Date;
 import java.util.List;
 
 public class LoginController extends Controller {
 
     @Inject
-    private StatusService statusService;
+    private StatusServiceImpl statusServiceImpl;
 
     @Inject
-    private LoginService loginService;
+    private LoginServiceImpl loginServiceImpl;
 
     @Inject
-    private RolesService rolesService;
+    private RolesServiceImpl rolesServiceImpl;
 
     @Inject
     private FormFactory formFactory;
 
 
     public Result create(){
-        Person person=loginService.createUser("P","","k","Delhi","a@gmail.com","12345");
+        Person person= loginServiceImpl.createUser("P","","k","Delhi","a@gmail.com","12345");
 
         return ok(Json.toJson(person));}
 
     public Result fetch(Integer id) {
-        Person person = loginService.fetchUser(id);
+        Person person = loginServiceImpl.fetchUser(id);
         if (person == null) {
             return ok("No Email exist " + id);
         }
         ////poitive case
         //System.out.println("Person " + person.getId());
-        return ok(Json.toJson(loginService.populatePerson(person)));
+        return ok(Json.toJson(loginServiceImpl.populatePerson(person)));
         //return ok("succes with persp Id "  + person.getId() + " Name : " + person.getFirstName() +
         //      " role name : " + person.getRoles().getRoles());
     }
 
 
     public Result updateStatus(Integer id, Integer  statusId){
-        Person  person = loginService.updateStatus(id, statusId);
+        Person  person = loginServiceImpl.updateStatus(id, statusId);
         return ok("updated");
     }
 
     public Result save(Http.Request request) {
         Form<PersonDto> personDtoForm=formFactory.form(PersonDto.class).bindFromRequest(request);
-loginService.savePerson(personDtoForm.get());
+loginServiceImpl.savePerson(personDtoForm.get());
         return ok("save successfully");
     }
 
 
     public Result login(Http.Request request) {
         Form<PersonDto> personDtoForm = formFactory.form(PersonDto.class).bindFromRequest(request);
-        Person person = loginService.fetchUserbyEmail(personDtoForm.get().getEmailId());
+        Person person = loginServiceImpl.fetchUserbyEmail(personDtoForm.get().getEmailId());
         if (person == null) {
             Logger.error("Emal ID doesnot exists");
             return ok("No Email exist");
         }
-        if(person.getStatus().getId().equals(statusService.inactive().getId()))
+        if(person.getStatus().getId().equals(statusServiceImpl.inactive().getId()))
             return ok("Person not active"       );
         Logger.debug("database password " + person.getPassword() );
         Logger.debug("UI password " + personDtoForm.get().getPassword());
@@ -82,9 +80,10 @@ loginService.savePerson(personDtoForm.get());
 
         return ok("Invalid password");
     }
-        public Result listOfStudent(){
-            List<Person> personList= loginService.listOfUser();
-        return ok(personList.toString());
+        public Result listOfStudent(Http.Request request){
+            List<PersonDto> personDtoList= loginServiceImpl.listOfUser();
+Logger.debug("Returning size  " + personDtoList.size() + "   " + Json.toJson(personDtoList));
+        return ok(Json.toJson(personDtoList));
         }
 
 

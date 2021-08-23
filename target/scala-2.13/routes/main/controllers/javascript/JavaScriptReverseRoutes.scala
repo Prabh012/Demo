@@ -38,6 +38,16 @@ package controllers.javascript {
     }
 
   
+    // @LINE:15
+    def listOfStudent: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.LoginController.listOfStudent",
+      """
+        function() {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "listOfStudent"})
+        }
+      """
+    )
+  
     // @LINE:12
     def save: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.LoginController.save",

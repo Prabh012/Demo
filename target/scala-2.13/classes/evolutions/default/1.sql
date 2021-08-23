@@ -60,7 +60,7 @@ create table status (
 
 create table person (
   id                            integer auto_increment not null,
-  roles                         integer,
+  roles_id                      integer,
   status                        integer,
   first_name                    varchar(255),
   middle_name                   varchar(255),
@@ -81,8 +81,8 @@ create table roles (
   constraint pk_roles primary key (id)
 );
 
-create index ix_person_roles on person (roles);
-alter table person add constraint fk_person_roles foreign key (roles) references roles (id) on delete restrict on update restrict;
+create index ix_person_roles_id on person (roles_id);
+alter table person add constraint fk_person_roles_id foreign key (roles_id) references roles (id) on delete restrict on update restrict;
 
 create index ix_person_status on person (status);
 alter table person add constraint fk_person_status foreign key (status) references status (id) on delete restrict on update restrict;
@@ -96,8 +96,8 @@ alter table person add constraint fk_person_updated_by foreign key (updated_by) 
 
 # --- !Downs
 
-alter table person drop foreign key fk_person_roles;
-drop index ix_person_roles on person;
+alter table person drop foreign key fk_person_roles_id;
+drop index ix_person_roles_id on person;
 
 alter table person drop foreign key fk_person_status;
 drop index ix_person_status on person;
