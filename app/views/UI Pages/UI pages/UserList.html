@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+<style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+h2{
+  margin: 30px;
+  text-align: center;
+}
+</style>
+
+
+</head>
+<body>
+
+<h2>Users List</h2>
+<table id="firstTable">
+	<thread>
+		<tr>
+		<th>User Name</th>
+		<th>Email</th>
+		<th>Address</th>
+		<th>Created By</th>
+		<th>Created On</th>
+		<th>Action</th>
+		<th>Status</th>
+	  </tr>
+  
+	</thread>
+	<tbody id="firstTableBody"></tbody>
+</table>
+
+
+
+  <tr>
+    <th>User Name</th>    <th>Email</th>    <th>Address</th>
+    <th>Created By</th>
+    <th>+</th>
+    <th>Status</th>
+  </tr>
+  <tr>
+    <td>Krishna Pandey</td>
+    <td>krishna@gmail.com</td>
+    <td>Bihar</td>
+    <td>HR</td>
+    <td>Edit</td>
+    <th>Active/Inactive</th>
+  </tr>
+  <tr>
+    <td>Vivek Singh</td>
+    <td>vivek@gmail.com</td>
+    <td>Uttrakhand</td>
+    <td>HR</td>
+<td>Edit/Activate or inactivate</td>
+    <th>Active/Inactive</th>
+  </tr>
+  <tr>
+    <td>Yasir Ali</td>
+    <td>yasir@gmail.com</td>
+    <td>Rampur</td>
+    <td>HR</td>
+    <td>Edit/Delete</td>
+    <th>Active/Inactive</th>
+  </tr>
+  <tr>
+    <td>Harshit Sharma</td>
+    <td>Harshit@gmail.com</td>
+    <td>Delhi</td>
+    <td>HR</td>
+    <td>Edit</td>
+    <th>Active/Inactive</th>
+  </tr>
+  <tr>
+    <td>Kashish Sethi</td>
+    <td>kashish@gmail.com</td>
+    <td>Delhi</td>
+    <td>HR</td>
+    <td>Edit</td>
+    <th>Active/Inactive</th>
+  </tr>
+  <tr>
+    <td>Simran</td>
+    <td>simran@gmail.com</td>
+    <td>Himachal Pradesh</td>
+    <td>HR</td>
+    <td>Edit</td>
+    <th>Active/Inactive</th>
+  </tr>
+</table>
+</body>
+<script>
+    $(document).ready(function() {
+
+        var g = '';
+        $.ajax({
+
+            url: "http://localhost:9000/listOfStudent",
+            type: "GET",
+            dataType: "json",
+            success: function(e) {
+                console.log(JSON.stringify(e));
+                $.each(e, function(k, v) {
+                    g += ' <tr>';
+                    g += '<td>' + v["firstName"] + ' ' + v["middleName"] + ' ' + v["lastName"] + '</td>';
+                    g += '<td>' + v["emailId"] + '</td>';
+                    g += '<td>' + v["address"] + '</td>';
+                    g += '<td>' + v["createdBy"] + '</td>';
+                    g += '<td>' + v["createdOn"] + '</td>';
+                    g += '<td>---</td>';
+                    g += '<td>' + v["status"] + '</td>';
+                    g += '</tr>';
+
+
+
+                });
+                $('#firstTableBody').html(g);
+            },
+
+            error: function(error) {
+                console.log(`Error ${error}`);
+                console.log(JSON.stringify(error));
+            }
+        });
+    }); 
+</script>
+</html>
